@@ -18,7 +18,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория курса'
         verbose_name_plural = 'Категории курсов'
-        ordering = ['-created_at', 'order']
+        ordering = ('-created_at', 'order')
 
     name = models.CharField(max_length=255)
     slug = AutoSlugField(max_length=250, populate_from='name',
@@ -41,7 +41,7 @@ class Course(models.Model):
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
-        ordering = ['-created_at', 'order']
+        ordering = ('-created_at', 'order')
 
     SIMPLE_CHOICES = ((0, 'Нет'), (1, 'Да'))
 
@@ -76,7 +76,7 @@ class Lesson(models.Model):
     class Meta:
         verbose_name = 'Лекция'
         verbose_name_plural = 'Лекции'
-        ordering = ['-created_at', 'order']
+        ordering = ('-created_at', 'order')
 
     course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE, related_name="lesson_course")
     name = models.CharField(verbose_name='Название', max_length=255)
@@ -102,7 +102,7 @@ class Task(models.Model):
     class Meta:
         verbose_name = 'Задание'
         verbose_name_plural = 'Задания'
-        ordering = ['-created_at']
+        ordering = ('-created_at',)
 
     lesson = models.ForeignKey(Lesson, verbose_name='Лекция', on_delete=models.CASCADE, related_name="task_lesson")
     name = models.CharField(verbose_name='Название', max_length=255,)
@@ -124,7 +124,7 @@ class TaskCriteria(models.Model):
     class Meta:
         verbose_name = 'Критерий оценки'
         verbose_name_plural = 'Критерии оценки'
-        ordering = ['-created_at']
+        ordering = ('-created_at',)
 
     task = models.ForeignKey(Task, verbose_name='Задание', on_delete=models.CASCADE, related_name="criteria_task")
     name = models.CharField(verbose_name='Название', max_length=255)

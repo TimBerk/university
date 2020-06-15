@@ -21,7 +21,7 @@ class Scope(models.Model):
     class Meta:
         verbose_name = 'Сфера деятельности'
         verbose_name_plural = 'Сферы деятельности'
-        ordering = ['-created_at', 'order']
+        ordering = ('-created_at', 'order')
 
     name = models.CharField(verbose_name='Название', max_length=255)
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',
@@ -43,7 +43,7 @@ class Skill(models.Model):
     class Meta:
         verbose_name = 'Навык'
         verbose_name_plural = 'Навыки'
-        ordering = ['order', 'name', '-created_at']
+        ordering = ('order', 'name', '-created_at')
 
     name = models.CharField(verbose_name='Название', max_length=255)
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',

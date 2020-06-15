@@ -14,7 +14,7 @@ class Group(models.Model):
     class Meta:
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
-        ordering = ['-created_at']
+        ordering = ('-created_at',)
 
     name = models.CharField(verbose_name='Название', max_length=255)
 
@@ -32,7 +32,7 @@ class List(models.Model):
     class Meta:
         verbose_name = 'Расписание'
         verbose_name_plural = 'Расписание лекций'
-        ordering = ['-created_at', '-started_at']
+        ordering = ('-created_at', '-started_at')
 
     course = models.OneToOneField(Course, verbose_name='Курс', on_delete=models.CASCADE)
     lesson = models.OneToOneField(Lesson, verbose_name='Лекция', on_delete=models.CASCADE)
