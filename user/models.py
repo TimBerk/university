@@ -32,8 +32,8 @@ class Scope(models.Model):
     status = models.PositiveSmallIntegerField(verbose_name='Статус',  choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_scope_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_scope_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_scopes")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_scopes")
 
     def __str__(self):
         return f'{self.name}'
@@ -54,8 +54,8 @@ class Skill(models.Model):
     status = models.PositiveSmallIntegerField(verbose_name='Статус',  choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_skill_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_skill_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_skills")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_skills")
 
     def __str__(self):
         return f'{self.name}'

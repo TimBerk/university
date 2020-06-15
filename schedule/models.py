@@ -21,8 +21,8 @@ class Group(models.Model):
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_group_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_group_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_groups")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_groups")
 
     def __str__(self):
         return f'Группа: {self.name}'
@@ -45,8 +45,8 @@ class List(models.Model):
     status = models.PositiveSmallIntegerField(choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_schedule_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_schedule_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_schedules")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_schedules")
 
     def __str__(self):
         return f'{self.course.name} ({self.course.name}) {self.started_at}'

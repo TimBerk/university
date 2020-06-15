@@ -30,8 +30,8 @@ class Category(models.Model):
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_course_cat_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_course_cat_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_categories")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_categories")
 
     def __str__(self):
         return f'{self.name}'
@@ -62,8 +62,8 @@ class Course(models.Model):
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_course_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_course_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_courses")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_courses")
 
     def __str__(self):
         return f'Курс: {self.name}'
@@ -91,8 +91,8 @@ class Lesson(models.Model):
                                               default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_lesson_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_lesson_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_lessons")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_lessons")
 
     def __str__(self):
         return f'Лекция: {self.name}'
@@ -113,8 +113,8 @@ class Task(models.Model):
                                               default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_task_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_task_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_tasks")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_tasks")
 
     def __str__(self):
         return f'{self.lesson.name}: {self.name}'
@@ -134,8 +134,8 @@ class TaskCriteria(models.Model):
                                               default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_task_criteria_user")
-    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_task_criteria_user")
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_task_criterias")
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_task_criterias")
 
     def __str__(self):
         return f'{self.task.name}: {self.name}'
