@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Курс "{{ course.name }}"</h1>
+
+        <blockquote class="blockquote">
+          <p class="mb-0">{{ course.description }}</p>
+          <a href="/" class="btn btn-primary">Вернуться</a>
+        </blockquote>
+
+        {% if course.lesson_course.all %}
+            <h3>Список лекций:</h3>
+
+            <ul class="list-group list-group-flush">
+                {% for lesson in course.lesson_course.all %}
+                    <li class="list-group-item">{{lesson.name}}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}
