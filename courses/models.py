@@ -20,14 +20,14 @@ class Category(models.Model):
         verbose_name_plural = 'Категории курсов'
         ordering = ['-created_at', 'order']
 
-    name = models.CharField(max_length=255, null=False, blank=False)
+    name = models.CharField(max_length=255)
     slug = AutoSlugField(max_length=250, populate_from='name',
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
     description = models.TextField()
-    order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
+    order = models.IntegerField(verbose_name='Порядок', default=1000)
 
-    status = models.PositiveSmallIntegerField(null=False, blank=False, choices=STATUSES, default=STATUS_ACTIVE)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_course_cat_user")
@@ -45,23 +45,21 @@ class Course(models.Model):
 
     SIMPLE_CHOICES = ((0, 'Нет'), (1, 'Да'))
 
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255)
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
     description = models.TextField(verbose_name='Описание')
     preview = models.ImageField(verbose_name='Превью', upload_to='media/courses/preview/%Y/%m/%d',
                                 null=True, blank=True)
-    has_certificate = models.SmallIntegerField(verbose_name='Наличие сертификата', null=False, blank=False,
-                                               choices=SIMPLE_CHOICES, default=0)
+    has_certificate = models.SmallIntegerField(verbose_name='Наличие сертификата', choices=SIMPLE_CHOICES, default=0)
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE,
                                  related_name="course_category")
     started_at = models.DateField(verbose_name='Дата начала курса', null=True, blank=True)
     ended_at = models.DateField(verbose_name='Дата окончания курса', null=True, blank=True)
-    order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
+    order = models.IntegerField(verbose_name='Порядок', default=1000)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
-                                              default=STATUS_DRAFT)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_course_user")
@@ -81,15 +79,15 @@ class Lesson(models.Model):
         ordering = ['-created_at', 'order']
 
     course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE, related_name="lesson_course")
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255)
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
     description = models.TextField(verbose_name='Описание')
     purpose = models.TextField(verbose_name='Цели')
-    order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
+    order = models.IntegerField(verbose_name='Порядок', default=1000)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES,
                                               default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -107,11 +105,11 @@ class Task(models.Model):
         ordering = ['-created_at']
 
     lesson = models.ForeignKey(Lesson, verbose_name='Лекция', on_delete=models.CASCADE, related_name="task_lesson")
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255,)
     description = models.TextField(verbose_name='Описание', null=True, blank=True)
     max_mark = models.IntegerField(verbose_name='Максимальная оценка')
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES,
                                               default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -129,10 +127,10 @@ class TaskCriteria(models.Model):
         ordering = ['-created_at']
 
     task = models.ForeignKey(Task, verbose_name='Задание', on_delete=models.CASCADE, related_name="criteria_task")
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255)
     max_mark = models.IntegerField(verbose_name='Оценка')
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES,
                                               default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -16,10 +16,9 @@ class Group(models.Model):
         verbose_name_plural = 'Группы'
         ordering = ['-created_at']
 
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
-                                              default=STATUS_DRAFT)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_group_user")
@@ -40,10 +39,10 @@ class List(models.Model):
     teacher = models.OneToOneField(User, verbose_name='Преподаватель', on_delete=models.CASCADE)
     group = models.OneToOneField(Group, verbose_name='Группа', on_delete=models.CASCADE)
 
-    started_at = models.DateField(verbose_name='Начало', null=False, blank=False)
-    ended_at = models.DateField(verbose_name='Конец', null=False, blank=False)
+    started_at = models.DateField(verbose_name='Начало')
+    ended_at = models.DateField(verbose_name='Конец')
 
-    status = models.PositiveSmallIntegerField(null=False, blank=False, choices=STATUSES, default=STATUS_DRAFT)
+    status = models.PositiveSmallIntegerField(choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_schedule_user")

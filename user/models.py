@@ -23,14 +23,13 @@ class Scope(models.Model):
         verbose_name_plural = 'Сферы деятельности'
         ordering = ['-created_at', 'order']
 
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255)
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
-    order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
+    order = models.IntegerField(verbose_name='Порядок', default=1000)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
-                                              default=STATUS_ACTIVE)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус',  choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_scope_user")
@@ -46,14 +45,13 @@ class Skill(models.Model):
         verbose_name_plural = 'Навыки'
         ordering = ['order', 'name', '-created_at']
 
-    name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
+    name = models.CharField(verbose_name='Название', max_length=255)
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
-    order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
+    order = models.IntegerField(verbose_name='Порядок',  default=1000)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
-                                              default=STATUS_ACTIVE)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус',  choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_skill_user")
@@ -80,7 +78,7 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.SmallIntegerField(verbose_name='Роль', null=False, blank=False, choices=ROLES, default=1)
+    role = models.SmallIntegerField(verbose_name='Роль', choices=ROLES, default=1)
     gender = models.SmallIntegerField(verbose_name='Пол', null=True, blank=True, choices=GENDER, default=1)
     qualification = models.SmallIntegerField(verbose_name='Квалификация', null=True, blank=True,
                                              choices=QUALIFICATION, default=0)
