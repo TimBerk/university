@@ -3,8 +3,11 @@ from django.contrib.auth.models import User
 
 from courses.models import Course, Lesson
 
+STATUS_INACTIVE = 0
+STATUS_ACTIVE = 1
+STATUS_DRAFT = 2
 
-STATUS = ((0, 'неактивный'), (1, 'активный'), (2, 'черновик'))
+STATUSES = ((STATUS_INACTIVE, 'неактивный'), (STATUS_ACTIVE, 'активный'), (STATUS_DRAFT, 'черновик'))
 
 
 class Group(models.Model):
@@ -15,7 +18,8 @@ class Group(models.Model):
 
     name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=2)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_group_user")
@@ -39,7 +43,7 @@ class List(models.Model):
     started_at = models.DateField(verbose_name='Начало', null=False, blank=False)
     ended_at = models.DateField(verbose_name='Конец', null=False, blank=False)
 
-    status = models.SmallIntegerField(null=False, blank=False, choices=STATUS, default=2)
+    status = models.PositiveSmallIntegerField(null=False, blank=False, choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_schedule_user")

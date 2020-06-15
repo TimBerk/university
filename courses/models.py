@@ -3,7 +3,11 @@ from django.contrib.auth.models import User
 from autoslug import AutoSlugField
 
 
-STATUS = ((0, 'неактивный'), (1, 'активный'), (2, 'черновик'))
+STATUS_INACTIVE = 0
+STATUS_ACTIVE = 1
+STATUS_DRAFT = 2
+
+STATUSES = ((STATUS_INACTIVE, 'неактивный'), (STATUS_ACTIVE, 'активный'), (STATUS_DRAFT, 'черновик'))
 
 
 def replace_in_slugify(value):
@@ -23,7 +27,7 @@ class Category(models.Model):
     description = models.TextField()
     order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
 
-    status = models.SmallIntegerField(null=False, blank=False, choices=STATUS, default=1)
+    status = models.PositiveSmallIntegerField(null=False, blank=False, choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_course_cat_user")
@@ -56,7 +60,8 @@ class Course(models.Model):
     ended_at = models.DateField(verbose_name='Дата окончания курса', null=True, blank=True)
     order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=2)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_course_user")
@@ -84,7 +89,8 @@ class Lesson(models.Model):
     purpose = models.TextField(verbose_name='Цели')
     order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=2)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_lesson_user")
@@ -105,7 +111,8 @@ class Task(models.Model):
     description = models.TextField(verbose_name='Описание', null=True, blank=True)
     max_mark = models.IntegerField(verbose_name='Максимальная оценка')
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=2)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_task_user")
@@ -125,7 +132,8 @@ class TaskCriteria(models.Model):
     name = models.CharField(verbose_name='Название', max_length=255, null=False, blank=False)
     max_mark = models.IntegerField(verbose_name='Оценка')
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=2)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_task_criteria_user")

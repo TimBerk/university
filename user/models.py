@@ -6,7 +6,11 @@ from django.dispatch import receiver
 from autoslug import AutoSlugField
 
 
-STATUS = ((0, 'неактивный'), (1, 'активный'), (2, 'черновик'))
+STATUS_INACTIVE = 0
+STATUS_ACTIVE = 1
+STATUS_DRAFT = 2
+
+STATUSES = ((STATUS_INACTIVE, 'неактивный'), (STATUS_ACTIVE, 'активный'), (STATUS_DRAFT, 'черновик'))
 
 
 def replace_in_slugify(value):
@@ -25,7 +29,8 @@ class Scope(models.Model):
                          slugify=replace_in_slugify)
     order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=1)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_scope_user")
@@ -47,7 +52,8 @@ class Skill(models.Model):
                          slugify=replace_in_slugify)
     order = models.IntegerField(verbose_name='Порядок', null=False, blank=False, default=1000)
 
-    status = models.SmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUS, default=1)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', null=False, blank=False, choices=STATUSES,
+                                              default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_skill_user")

@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Course
+from .models import Course, STATUS_ACTIVE
 
 
 def index_view(request):
-    courses = Course.objects.filter(status=1).all()
+    courses = Course.objects.filter(status=STATUS_ACTIVE).all()
     context = {
         'courses': courses
     }
