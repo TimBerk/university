@@ -14,7 +14,15 @@ def replace_in_slugify(value):
     return value.replace(' ', '-')
 
 
-class Category(models.Model):
+class InfoMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(InfoMixin):
     class Meta:
         verbose_name = 'Категория курса'
         verbose_name_plural = 'Категории курсов'
@@ -28,8 +36,6 @@ class Category(models.Model):
     order = models.IntegerField(verbose_name='Порядок', default=1000)
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_ACTIVE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_categories")
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_categories")
 
@@ -37,7 +43,7 @@ class Category(models.Model):
         return f'{self.name}'
 
 
-class Course(models.Model):
+class Course(InfoMixin):
     class Meta:
         verbose_name = 'Курс'
         verbose_name_plural = 'Курсы'
@@ -60,8 +66,6 @@ class Course(models.Model):
     order = models.IntegerField(verbose_name='Порядок', default=1000)
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_courses")
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_courses")
 
@@ -72,7 +76,7 @@ class Course(models.Model):
         return self.category.name
 
 
-class Lesson(models.Model):
+class Lesson(InfoMixin):
     class Meta:
         verbose_name = 'Лекция'
         verbose_name_plural = 'Лекции'
@@ -89,8 +93,6 @@ class Lesson(models.Model):
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES,
                                               default=STATUS_DRAFT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_lessons")
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_lessons")
 
@@ -98,7 +100,7 @@ class Lesson(models.Model):
         return f'Лекция: {self.name}'
 
 
-class Task(models.Model):
+class Task(InfoMixin):
     class Meta:
         verbose_name = 'Задание'
         verbose_name_plural = 'Задания'
@@ -111,8 +113,6 @@ class Task(models.Model):
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES,
                                               default=STATUS_DRAFT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_tasks")
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_tasks")
 
@@ -120,7 +120,7 @@ class Task(models.Model):
         return f'{self.lesson.name}: {self.name}'
 
 
-class TaskCriteria(models.Model):
+class TaskCriteria(InfoMixin):
     class Meta:
         verbose_name = 'Критерий оценки'
         verbose_name_plural = 'Критерии оценки'
@@ -132,8 +132,6 @@ class TaskCriteria(models.Model):
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES,
                                               default=STATUS_DRAFT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_task_criterias")
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_task_criterias")
 

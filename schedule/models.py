@@ -10,7 +10,15 @@ STATUS_DRAFT = 2
 STATUSES = ((STATUS_INACTIVE, 'неактивный'), (STATUS_ACTIVE, 'активный'), (STATUS_DRAFT, 'черновик'))
 
 
-class Group(models.Model):
+class InfoMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Group(InfoMixin):
     class Meta:
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
@@ -28,7 +36,7 @@ class Group(models.Model):
         return f'Группа: {self.name}'
 
 
-class List(models.Model):
+class List(InfoMixin):
     class Meta:
         verbose_name = 'Расписание'
         verbose_name_plural = 'Расписание лекций'

@@ -17,7 +17,15 @@ def replace_in_slugify(value):
     return value.replace(' ', '-')
 
 
-class Scope(models.Model):
+class InfoMixin(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Scope(InfoMixin):
     class Meta:
         verbose_name = 'Сфера деятельности'
         verbose_name_plural = 'Сферы деятельности'
@@ -39,7 +47,7 @@ class Scope(models.Model):
         return f'{self.name}'
 
 
-class Skill(models.Model):
+class Skill(InfoMixin):
     class Meta:
         verbose_name = 'Навык'
         verbose_name_plural = 'Навыки'
