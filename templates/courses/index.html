@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <h4 class="card-title">{{ course.name }}</h4>
 
-                    <p class="card-text">{{ course.description|striptags }}</p>
+                    <p class="card-text">{{ course.description|striptags|truncatechars:150 }}</p>
 
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <a href="{% url 'courses:detail_view' course.id %}" class="btn btn-amber btn-md">Просмотреть</a>

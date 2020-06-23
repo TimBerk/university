@@ -14,3 +14,4 @@ start:
 	python manage.py create-admin --noinput --username admin --password admin --email admin@admin.ru
 	python manage.py loaddata user/fixtures/data.json
 	python manage.py loaddata courses/fixtures/data.json
+	python manage.py collectstatic

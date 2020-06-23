@@ -8,7 +8,7 @@
 Перед запуском вам необходимо установить все зависимости.
 
 ```console
-git clone --recursive https://github.com/TimBerk/university
+git clone https://github.com/TimBerk/university
 cd university
 pip install -r requirements.txt
 make make-migrate
@@ -31,7 +31,8 @@ make start
 * **make-migrate** - создание новых миграции на основе изменений в моделях.
 * **superuser** - создание администратора.
 * **shell** - запуск интерактивного интерпретатора.
-* **start** -  инициализация тестовых данных.
+* **start** - инициализация тестовых данных.
+* **static-files** - инициализация статических файлов.
 
 
 ## Features
