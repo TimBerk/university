@@ -48,7 +48,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'category', 'order', 'started_at', 'ended_at']
+    list_display = ['id', 'name', 'category', 'order', 'started_at', 'finished_at']
     list_display_links = ['name']
     list_filter = ['category', 'started_at', 'order']
     exclude = ['created_by', 'updated_by']

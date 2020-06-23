@@ -22,6 +22,7 @@ make start
 * [Django autoslug](https://django-autoslug.readthedocs.org/) - Django library that provides an improved slug field.
 * [Pillow](https://pillow.readthedocs.io/en/stable/) - Python Imaging Library.
 * [Django environ’s](https://django-environ.readthedocs.io/en/latest/) - Django-environ allows to utilize 12factor inspired environment variables to configure Django application.
+* [Django CKEditor](https://django-ckeditor.readthedocs.io/en/latest/) - Proven, enterprise-grade WYSIWYG HTML editor with wide browser compatibility, including legacy browsers.
 
 ## Make команды
 

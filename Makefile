@@ -8,6 +8,8 @@ superuser:
 	python manage.py createsuperuser
 shell:
 	python manage.py shell
+static-files:
+	python manage.py collectstatic
 start:
 	python manage.py create-admin --noinput --username admin --password admin --email admin@admin.ru
 	python manage.py loaddata user/fixtures/data.json

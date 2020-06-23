@@ -56,13 +56,13 @@ class Course(InfoMixin):
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
     description = models.TextField(verbose_name='Описание')
-    preview = models.ImageField(verbose_name='Превью', upload_to='media/courses/preview/%Y/%m/%d',
+    preview = models.ImageField(verbose_name='Превью', upload_to='courses/preview/%Y/%m/%d',
                                 null=True, blank=True)
     has_certificate = models.SmallIntegerField(verbose_name='Наличие сертификата', choices=SIMPLE_CHOICES, default=0)
     category = models.ForeignKey(Category, verbose_name='Категория', on_delete=models.CASCADE,
                                  related_name="course_category")
     started_at = models.DateField(verbose_name='Дата начала курса', null=True, blank=True)
-    ended_at = models.DateField(verbose_name='Дата окончания курса', null=True, blank=True)
+    finished_at = models.DateField(verbose_name='Дата окончания курса', null=True, blank=True)
     order = models.IntegerField(verbose_name='Порядок', default=1000)
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)

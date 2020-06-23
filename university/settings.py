@@ -15,7 +15,7 @@ import environ
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-root = environ.Path(__file__) - 3
+root = environ.Path(__file__) - 2
 env = environ.Env()
 environ.Env.read_env()
 
@@ -43,10 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.forms',
+
+    'ckeditor',
+
     'user.apps.UserConfig',
     'courses.apps.CoursesConfig',
     'schedule.apps.ScheduleConfig'
 ]
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,7 +69,7 @@ ROOT_URLCONF = 'university.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,6 +81,11 @@ TEMPLATES = [
         },
     },
 ]
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader'
+)
 
 WSGI_APPLICATION = 'university.wsgi.application'
 
@@ -122,8 +133,28 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Media files (Images, Documents)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+
+# CKEDITOR
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ],
+        'width': '100%',
+    }
+}

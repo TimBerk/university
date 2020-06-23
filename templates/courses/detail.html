@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 
+{% block title %} Просмотр курса{% endblock %}
+
 {% block content %}
     <div class="container">
         <h1>Курс "{{ course.name }}"</h1>
 
+        {% if course.preview %}
+            <div class="row mb-4">
+              <div class="col-md-4 p-2 ">
+                <img src="/media/{{ course.preview }}" class="img-fluid" alt="{{ course.name }}">
+              </div>
+            </div>
+        {% endif %}
+
         <blockquote class="blockquote">
-          <p class="mb-0">{{ course.description }}</p>
-          <a href="/" class="btn btn-primary">Вернуться</a>
+            {{ course.description|safe }}
+
+            <a href="/" class="btn btn-primary">Вернуться</a>
         </blockquote>
 
         {% if course.lesson_course.all %}

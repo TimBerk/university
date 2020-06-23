@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %} Создание курса{% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h1>Новый курс</h1>
+
+        {% include "courses/_form.html" %}
+    </div>
+{% endblock %}
