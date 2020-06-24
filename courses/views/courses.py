@@ -2,22 +2,24 @@ from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
 from django.urls import reverse
-from django.views.generic import TemplateView, CreateView, UpdateView, DetailView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from courses.models import Course, STATUS_ACTIVE
+from courses.models import Course
 from courses.forms import CourseForm
 
 
-class AllCoursesTemplateView(TemplateView):
+class AllCoursesListView(ListView):
+    model = Course
+    context_object_name = 'courses'
     template_name = 'courses/index.html'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        courses = Course.objects.filter(status=STATUS_ACTIVE).all()
-        context.update({"courses": courses})
+        context['page_request_var'] = "page"
         return context
 
 
