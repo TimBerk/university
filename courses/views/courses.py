@@ -49,16 +49,11 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
     model = Course
     form_class = CourseForm
     template_name = "courses/update.html"
+    context_object_name = 'course'
 
     @staticmethod
     def get_detail_url(id):
         return reverse('courses:detail_view', args=[id])
-
-    def get_context_data(self, **kwargs):
-        context = super(CourseUpdateView, self).get_context_data(**kwargs)
-        obj = self.get_object()
-        context['course'] = obj
-        return context
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -75,12 +70,7 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "courses/delete.html"
     success_url = reverse_lazy('courses:index')
     success_message = "Курс удален!"
-
-    def get_context_data(self, **kwargs):
-        context = super(CourseDeleteView, self).get_context_data(**kwargs)
-        obj = self.get_object()
-        context['course'] = obj
-        return context
+    context_object_name = 'course'
 
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
