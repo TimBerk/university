@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
 from django.contrib import messages
@@ -29,19 +29,15 @@ class CourseDetailView(DetailView):
 
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
-    login_url = '/admin/'
+    login_url = reverse_lazy('admin:index')
     template_name = 'courses/create.html'
     form_class = CourseForm
 
     def get_success_url(self):
         return reverse('courses:index')
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
     def post(self, request):
-        current_user = request.user if request.user else None
+        current_user = request.user or None
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid() and not current_user.is_anonymous:
             form.cleaned_data['created_by'] = current_user
@@ -53,7 +49,7 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
 
 
 class CourseUpdateView(LoginRequiredMixin, UpdateView):
-    login_url = '/admin/'
+    login_url = reverse_lazy('admin:index')
     model = Course
     form_class = CourseForm
     template_name = "courses/update.html"
@@ -76,7 +72,7 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
         return redirect(self.success_url)
 
     def post(self, request, pk):
-        current_user = request.user if request.user else None
+        current_user = request.user or None
         course = get_object_or_404(Course, id=pk)
         form = self.form_class(request.POST, request.FILES, instance=course)
         if form.is_valid() and not current_user.is_anonymous:
@@ -89,7 +85,7 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class CourseDeleteView(LoginRequiredMixin, DeleteView):
-    login_url = '/admin/'
+    login_url = reverse_lazy('admin:index')
     model = Course
     template_name = "courses/delete.html"
 
