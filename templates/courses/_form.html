@@ -1,7 +1,29 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    {% if form.errors %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     {{ form.media }}
-    {{ form.as_p}}
+    {% for field in form %}
+        <div class="mb-3">
+            {{ field.label_tag }}
+
+            {{ field }}
+
+            {% if field.errors %}
+                 {% for error in field.errors %}
+                    <p class="text-danger">{{ error|escape }}</p>
+               {% endfor %}
+            {% endif %}
+        </div>
+    {% endfor %}
+
     <button class="btn btn-success">Сохранить</button>
 </form>
 

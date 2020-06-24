@@ -5,15 +5,16 @@ from university.widgets.DatePickerInput import DatePickerInput
 
 
 class CourseForm(forms.ModelForm):
-    def cleaned_data(self):
+    def clean(self):
         cleaned_data = super(CourseForm, self).clean()
         from_time = cleaned_data.get("started_at")
         end_time = cleaned_data.get("finished_at")
 
         if from_time and end_time:
             if end_time < from_time:
-                raise forms.ValidationError("Дата окончания курса не может быть раньше даты начала")
-        return cleaned_data
+                msg = "Дата окончания курса не может быть раньше даты начала"
+                self.add_error('finished_at', msg)
+                raise forms.ValidationError(msg)
 
     class Meta:
         model = Course
