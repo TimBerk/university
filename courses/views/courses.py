@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import get_object_or_404
 
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
@@ -36,16 +35,13 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('courses:index')
 
-    def post(self, request):
-        current_user = request.user or None
-        form = self.form_class(request.POST, request.FILES)
-        if form.is_valid() and not current_user.is_anonymous:
-            form.cleaned_data['created_by'] = current_user
-            form.cleaned_data['updated_by'] = current_user
-            Course.objects.create(**form.cleaned_data)
-            messages.success(request, 'Курс создан!')
-            return redirect(self.get_success_url())
-        return render(request, 'courses/create.html', context={'form': form})
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.created_by = self.request.user
+        obj.updated_by = self.request.user
+        obj.save()
+        messages.success(self.request, 'Курс создан!')
+        return redirect(self.get_success_url())
 
 
 class CourseUpdateView(LoginRequiredMixin, UpdateView):
@@ -66,28 +62,19 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         obj = form.save(commit=False)
-        obj.updated_by = self.current_user
+        obj.updated_by = self.request.user
         obj.save()
 
-        return redirect(self.success_url)
-
-    def post(self, request, pk):
-        current_user = request.user or None
-        course = get_object_or_404(Course, id=pk)
-        form = self.form_class(request.POST, request.FILES, instance=course)
-        if form.is_valid() and not current_user.is_anonymous:
-            form.cleaned_data['created_by'] = course.created_by
-            form.cleaned_data['updated_by'] = current_user
-            form.save()
-            messages.info(request, 'Курс обновлен!')
-            return redirect(self.get_detail_url(course.id))
-        return render(request, 'courses/update.html', context={'form': form, 'course': course})
+        messages.info(self.request, 'Курс обновлен!')
+        return redirect(self.get_detail_url(obj.id))
 
 
 class CourseDeleteView(LoginRequiredMixin, DeleteView):
     login_url = reverse_lazy('admin:index')
     model = Course
     template_name = "courses/delete.html"
+    success_url = reverse_lazy('courses:index')
+    success_message = "Курс удален!"
 
     def get_context_data(self, **kwargs):
         context = super(CourseDeleteView, self).get_context_data(**kwargs)
@@ -95,11 +82,9 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
         context['course'] = obj
         return context
 
-    def post(self, request, pk):
-        course = get_object_or_404(Course, pk=pk)
-        course.delete()
-        messages.error(request, 'Курс удален!')
-        return redirect(reverse('courses:index'))
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(CourseDeleteView, self).delete(request, *args, **kwargs)
 
 
 def handler404(request, exception):
