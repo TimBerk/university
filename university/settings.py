@@ -49,7 +49,8 @@ INSTALLED_APPS = [
 
     'user.apps.UserConfig',
     'courses.apps.CoursesConfig',
-    'schedule.apps.ScheduleConfig'
+    'schedule.apps.ScheduleConfig',
+    'contacts.apps.ContactsConfig'
 ]
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
@@ -158,3 +159,16 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
     }
 }
+
+ADMIN_EMAIL = env.str('ADMIN_EMAIL')
+ROBOT_EMAIL = env.str('ROBOT_EMAIL')
+
+# EMAIL_HOST = env.str('EMAIL_HOST')
+# EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+# EMAIL_PORT = env.int('EMAIL_PORT')
+# EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', True)
+
+# Saving email in folder
+EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail/contacts-messages/')

@@ -81,6 +81,7 @@ ENV/
 *.sqlite3
 media/
 static/
+mail/
 *.pyc
 *.db
 *.pid

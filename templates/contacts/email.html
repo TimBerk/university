@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %} Обратная связь {% endblock %}
+
+{% block content %}
+    <div class="container mt-3">
+        <h1>Обратная связь</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {{ form.media }}
+            {% for field in form %}
+                <div class="mb-3">
+                    {{ field.label_tag }}
+
+                    {{ field }}
+
+                    {% if field.errors %}
+                         {% for error in field.errors %}
+                            <p class="text-danger">{{ error|escape }}</p>
+                       {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button class="btn btn-success">Отправить</button>
+        </form>
+    </div>
+{% endblock %}
