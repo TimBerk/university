@@ -31,7 +31,8 @@ SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
+INTERNAL_IPS = ['127.0.0.1']
 
 
 # Application definition
@@ -45,12 +46,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.forms',
 
+    'debug_toolbar',
     'ckeditor',
 
     'user.apps.UserConfig',
     'courses.apps.CoursesConfig',
     'schedule.apps.ScheduleConfig',
-    'contacts.apps.ContactsConfig'
+    'contacts.apps.ContactsConfig',
+
+    'django_rq',
 ]
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
@@ -63,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'university.urls'
@@ -160,6 +165,14 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0
+    }
+}
+
 ADMIN_EMAIL = env.str('ADMIN_EMAIL')
 ROBOT_EMAIL = env.str('ROBOT_EMAIL')
 
@@ -171,4 +184,4 @@ ROBOT_EMAIL = env.str('ROBOT_EMAIL')
 
 # Saving email in folder
 EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail/contacts-messages/')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail/')

@@ -15,3 +15,7 @@ start:
 	python manage.py loaddata user/fixtures/data.json
 	python manage.py loaddata courses/fixtures/data.json
 	python manage.py collectstatic
+rqscheduler:
+	python manage.py rqscheduler
+rqworker:
+	python manage.py rqworker default

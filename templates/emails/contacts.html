@@ -53,17 +53,23 @@
                                                     <th class="column-top" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; vertical-align:top; Margin:0" width="530">
                                                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                             {% if for_admin %}
+                                                                <tr>
+                                                                    <td class="text" style="color:#000000; font-family:Arial,sans-serif, 'Muli'; font-size:13px; line-height:24px; text-align:left">
+                                                                        <multiline>{{ message }}</multiline>
+                                                                    </td>
+                                                                </tr>
                                                                 <td class="row30" style="padding:30px 0px 30px 0px">
                                                                     <td class="text" style="color:#000000; font-family:Arial,sans-serif, 'Muli'; font-size:13px; line-height:24px; text-align:left">
                                                                         <multiline>Сообщение от: <strong>{{ user_email }}</strong></multiline>
                                                                     </td>
                                                                 </tr>
+                                                            {% else %}
+                                                                <tr>
+                                                                    <td class="text" style="color:#000000; font-family:Arial,sans-serif, 'Muli'; font-size:13px; line-height:24px; text-align:left">
+                                                                        <multiline>Ваше сообщение получено.</multiline>
+                                                                    </td>
+                                                                </tr>
                                                             {% endif %}
-                                                            <tr>
-                                                                <td class="text" style="color:#000000; font-family:Arial,sans-serif, 'Muli'; font-size:13px; line-height:24px; text-align:left">
-                                                                    <multiline>{{ message }}</multiline>
-                                                                </td>
-                                                            </tr>
                                                         </table>
                                                     </th>
                                                     <th class="column" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal; Margin:0" width="15">

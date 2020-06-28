@@ -1,14 +1,18 @@
-from django.shortcuts import render, redirect
+from datetime import datetime
+
+import django_rq
+
+from django.shortcuts import redirect
 
 from django.urls import reverse
 from django.views.generic import FormView
 
 from django.contrib import messages
-from django.core.mail import BadHeaderError
 
-from university.commands.EmailCommand import EmailCommand
+from university.helpers.EmailHelper import EmailHelper
 
 from contacts.forms import EmailForm
+from contacts.tasks import send_email_job
 
 
 class EmailView(FormView):
@@ -35,8 +39,8 @@ class EmailView(FormView):
             }
             email.update({'context': email_context})
 
-            letter = EmailCommand(email=email, to_email=from_email)
-            letter.template = 'emails/contacts.html'
+            letter = EmailHelper(email=email, to_email=from_email, template='emails/contacts.html')
+            letter = letter.email_content()
 
             email_context = {
                 'subject': subject,
@@ -45,15 +49,18 @@ class EmailView(FormView):
                 'user_email': from_email
             }
             email.update({'context': email_context})
-            letter_admin = EmailCommand(email=email, to_email=from_email, for_admin=True)
-            letter_admin.template = 'emails/contacts.html'
-            try:
-                letter.send()
-                letter_admin.send()
-                messages.success(self.request, 'Письмо отправлено')
-                return redirect(self.get_success_url())
-            except BadHeaderError:
-                messages.error(self.request, 'Обнаружен неверный заголовок.')
-                return redirect(reverse('contacts:index'))
+
+            letter_admin = EmailHelper(email=email, to_email=from_email, for_admin=True,
+                                       template='emails/contacts.html')
+            letter_admin = letter_admin.email_content()
+
+            scheduler = django_rq.get_scheduler('default')
+            scheduler.enqueue_at(datetime.utcnow(), func=send_email_job, email=letter)
+            scheduler.enqueue_at(datetime.utcnow(), func=send_email_job, email=letter_admin)
+
+            messages.success(self.request, 'Письмо отправлено')
+            return redirect(self.get_success_url())
         else:
             messages.warning(self.request, 'Убедитесь, что все поля введены и корректны')
+
+        return super().form_valid(form)

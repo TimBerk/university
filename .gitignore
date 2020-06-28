@@ -79,6 +79,7 @@ ENV/
 
 .DS_Store
 *.sqlite3
+*.rdb
 media/
 static/
 mail/
