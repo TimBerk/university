@@ -5,7 +5,7 @@
 
 ## Installation
 
-Перед запуском вам необходимо установить все зависимости.
+Перед запуском вам необходимо установить все зависимости. При работе с ОС Linux, в Makefile необходимо заменить python на python3.
 
 ```console
 git clone https://github.com/TimBerk/university
@@ -53,6 +53,10 @@ make start
 ### Courses
 
 * Add category course, lessons, tasks.
+
+### Contacts
+
+* Sending letters with Redis.
 
 ## Demo User
 
