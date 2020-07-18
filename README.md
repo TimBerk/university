@@ -26,6 +26,11 @@ make start
 * [Django eml email backend](https://github.com/kmike/django-eml-email-backend) - Django has filebased email backend that is handy for inspecting outgoing emails during development.
 * [Django Debug Toolbar](https://django-debug-toolbar.readthedocs.io/en/latest/index.html) - The Django Debug Toolbar is a configurable set of panels that display various debug information about the current request/response and when clicked, display more details about the panel’s content.
 * [Django RQ](https://github.com/rq/django-rq) - Django integration with RQ, a Redis based Python queuing library.
+* [Django REST framework](https://www.django-rest-framework.org/) - Django REST framework is a toolkit for building Web APIs.
+* [Django Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/) - Simple JWT provides a JSON Web Token authentication backend.
+* [Djoser](https://djoser.readthedocs.io/en/latest/getting_started.html) - REST implementation of Django authentication system.
+* [drf-yasg](https://drf-yasg.readthedocs.io/en/stable/) - library generates OpenAPI 2.0 documents.
+* [Pipdeptree](https://github.com/naiquevin/pipdeptree) - command line utility for displaying the installed python packages in form of a dependency tree.
 
 ## Make команды
 
@@ -38,6 +43,8 @@ make start
 * **static-files** - инициализация статических файлов.
 * **rqscheduler** - запуск scheduler для Redis.
 * **rqworker** - запуск worker для каждой указанной очереди Redis.
+* **get-packages** - запись списка используемых пакетов в проекте.
+* **install-packages** - установка необходимых пакетов для проекта.
 
 
 ## Features
@@ -57,6 +64,11 @@ make start
 ### Contacts
 
 * Sending letters with Redis.
+
+### API
+
+* Authorization with JWT token;
+* CRUD for categories, courses and lessons.
 
 ## Demo User
 

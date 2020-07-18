@@ -19,3 +19,7 @@ rqscheduler:
 	python manage.py rqscheduler
 rqworker:
 	python manage.py rqworker default
+get-packages:
+	pip freeze > requirements.txt
+install-packages:
+	pip install -r requirements.txt

@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from django.conf import settings
+from rest_framework.authtoken.models import Token
+
 from autoslug import AutoSlugField
 
 
@@ -37,7 +40,7 @@ class Scope(InfoMixin):
                          slugify=replace_in_slugify)
     order = models.IntegerField(verbose_name='Порядок', default=1000)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус',  choices=STATUSES, default=STATUS_ACTIVE)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_scopes")
@@ -57,9 +60,9 @@ class Skill(InfoMixin):
     slug = AutoSlugField(verbose_name='Слаг', max_length=250, populate_from='name',
                          unique_with=['name', 'created_at'],
                          slugify=replace_in_slugify)
-    order = models.IntegerField(verbose_name='Порядок',  default=1000)
+    order = models.IntegerField(verbose_name='Порядок', default=1000)
 
-    status = models.PositiveSmallIntegerField(verbose_name='Статус',  choices=STATUSES, default=STATUS_ACTIVE)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_ACTIVE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_skills")
@@ -111,3 +114,9 @@ def create_student_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_student_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_token_for_new_user(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

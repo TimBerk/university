@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('courses.urls')),
     path('schedule/', include('schedule.urls')),
     path('contacts/', include('contacts.urls')),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:
