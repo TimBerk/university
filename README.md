@@ -10,7 +10,7 @@
 ```console
 git clone https://github.com/TimBerk/university
 cd university
-pip install -r requirements.txt
+make install-packages
 make make-migrate
 make migrate
 make start
@@ -69,6 +69,7 @@ make start
 
 * Authorization with JWT token;
 * CRUD for categories, courses and lessons.
+* Auto generate OpenAPI 2.0 documents.
 
 ## Demo User
 

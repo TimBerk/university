@@ -2,7 +2,6 @@ from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
 
-import api.views.default as based_views
 import api.views.user as user_based_views
 import api.views.categories as categories_based_views
 import api.views.courses as courses_based_views
@@ -14,8 +13,6 @@ app_name = 'api'
 router = DefaultRouter()
 
 urlpatterns = [
-    path('', based_views.IndexView.as_view(), name='index'),
-
     path('categories/', categories_based_views.CategoryListView.as_view()),
     path('categories/create', categories_based_views.CategoryCreateView.as_view()),
     path('categories/<int:pk>', categories_based_views.CategoryDetailView.as_view()),
