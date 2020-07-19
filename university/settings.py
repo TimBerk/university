@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'schedule.apps.ScheduleConfig',
     'contacts.apps.ContactsConfig',
-    'api.apps.ApiConfig'
+    'api.apps.ApiConfig',
+    'student.apps.StudentConfig'
 ]
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
@@ -131,6 +132,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = "/student/login"
 
 
 # Internationalization

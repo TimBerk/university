@@ -1,0 +1,46 @@
+{% extends "clear_base.html" %}
+
+{% block title %} Регистрация {% endblock %}
+
+{% block content %}
+     <div class="h-100 d-flex justify-content-center align-items-center">
+         <div class="container">
+             <div class="row">
+                 <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+                     <form method="POST" class="text-center border border-light p-5">
+                        {% csrf_token %}
+
+                        <p class="h4 mb-4">Регистрация</p>
+
+                        {% if form.errors %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {{ form.media }}
+                        {% for field in form %}
+                            <div class="mb-3">
+                                {{ field }}
+
+                                {% if field.errors %}
+                                     {% for error in field.errors %}
+                                        <p class="text-danger">{{ error|escape }}</p>
+                                   {% endfor %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button class="btn btn-info btn-block my-4" type="submit">Зарегестрироваться</button>
+
+                        <p>Есть аккаунт?
+                            <a href="/student/login">Авторизоваться</a>
+                        </p>
+                     </form>
+                 </div>
+             </div>
+         </div>
+    </div>
+{% endblock %}

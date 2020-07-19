@@ -19,10 +19,16 @@ ADMIN_ORDERING = [
         'Task',
         'TaskCriteria',
     ]),
+    ('schedule', [
+        'Group',
+        'List',
+    ]),
+    ('student', [
+        'Homework'
+    ]),
 ]
 
 
-# Sort function for models in app
 def get_app_list(self, request):
     app_dict = self._build_app_dict(request)
     for app_name, object_list in ADMIN_ORDERING:

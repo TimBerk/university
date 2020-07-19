@@ -1,0 +1,54 @@
+{% extends "clear_base.html" %}
+
+{% block title %} Авторизация {% endblock %}
+
+{% block content %}
+    <div class="h-100 d-flex justify-content-center align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+
+                    <form method="POST" class="text-center border border-light p-5">
+                        {% csrf_token %}
+
+                        <p class="h4 mb-4">Авторизация</p>
+
+                        {% if form.errors %}
+                            {% for error in form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        {{ form.media }}
+
+                        {% for field in form %}
+                            <div class="mb-3">
+                                <input class="form-control" id="{{ field.id_for_label }}"
+                                   maxlength="30"
+                                   placeholder="{{ field.html_name }}"
+                                   name="{{ field.html_name }}"
+                                   type="{{field.field.widget.input_type}}"
+                                   {% if field.value %} value="{{ field.value }}" {% endif %}
+                                />
+
+                                {% if field.errors %}
+                                     {% for error in field.errors %}
+                                        <p class="text-danger">{{ error|escape }}</p>
+                                   {% endfor %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button class="btn btn-info btn-block my-4" type="submit">Войти</button>
+
+                        <p>Ещё нет аккаунта?
+                            <a href="/student/signup">Зарегестрироваться</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

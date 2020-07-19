@@ -25,6 +25,12 @@ class Group(InfoMixin):
         ordering = ('-created_at',)
 
     name = models.CharField(verbose_name='Название', max_length=255)
+    course = models.ForeignKey(Course, verbose_name='Курс', on_delete=models.CASCADE, related_name="group_course")
+    members = models.ManyToManyField(
+        User,
+        through='Membership',
+        through_fields=('group', 'person')
+    )
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -34,6 +40,11 @@ class Group(InfoMixin):
 
     def __str__(self):
         return f'Группа: {self.name}'
+
+
+class Membership(models.Model):
+    person = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
 
 class List(InfoMixin):
@@ -47,8 +58,8 @@ class List(InfoMixin):
     teacher = models.OneToOneField(User, verbose_name='Преподаватель', on_delete=models.CASCADE)
     group = models.OneToOneField(Group, verbose_name='Группа', on_delete=models.CASCADE)
 
-    started_at = models.DateField(verbose_name='Начало')
-    ended_at = models.DateField(verbose_name='Конец')
+    started_at = models.DateTimeField(verbose_name='Начало')
+    ended_at = models.DateTimeField(verbose_name='Конец')
 
     status = models.PositiveSmallIntegerField(choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -57,4 +68,4 @@ class List(InfoMixin):
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="updated_schedules")
 
     def __str__(self):
-        return f'{self.course.name} ({self.course.name}) {self.started_at}'
+        return f'{self.course.name} ({self.group.name}) {self.started_at}'
