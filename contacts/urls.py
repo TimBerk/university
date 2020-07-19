@@ -7,8 +7,6 @@ import contacts.views as contacts_based_views
 
 app_name = 'contacts'
 
-handler404 = 'courses.views.handler404'
-
 urlpatterns = [
     path('', contacts_based_views.EmailView.as_view(), name='index'),
 ]

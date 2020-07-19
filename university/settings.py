@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     'schedule.apps.ScheduleConfig',
     'contacts.apps.ContactsConfig',
     'api.apps.ApiConfig',
-    'student.apps.StudentConfig'
+    'student.apps.StudentConfig',
+    'teacher.apps.TeacherConfig'
 ]
 
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'

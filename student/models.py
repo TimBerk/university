@@ -29,8 +29,8 @@ class Homework(InfoMixin):
         verbose_name = 'Задания студента'
         verbose_name_plural = 'Задания студента'
 
-    user = models.ForeignKey(User, verbose_name='Студент', on_delete=models.CASCADE, related_name="studetn_user")
-    task = models.ForeignKey(Task, verbose_name='Задание', on_delete=models.CASCADE, related_name="studetn_task")
+    user = models.ForeignKey(User, verbose_name='Студент', on_delete=models.CASCADE, related_name="student_user")
+    task = models.ForeignKey(Task, verbose_name='Задание', on_delete=models.CASCADE, related_name="student_task")
     score = models.IntegerField(verbose_name='Оценка', default=0)
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES_HOMEWORK,

@@ -7,8 +7,6 @@ import courses.views.courses as courses_based_views
 
 app_name = 'courses'
 
-handler404 = 'courses.views.handler404'
-
 urlpatterns = [
     path('', courses_based_views.AllCoursesListView.as_view(), name='index'),
     path('courses/create/', courses_based_views.CourseCreateView.as_view(), name='create_view'),
