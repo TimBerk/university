@@ -29,7 +29,15 @@ class Group(InfoMixin):
     members = models.ManyToManyField(
         User,
         through='Membership',
-        through_fields=('group', 'person')
+        through_fields=('group', 'person'),
+        related_name='group_members'
+    )
+
+    teachers = models.ManyToManyField(
+        User,
+        through='Personal',
+        through_fields=('group', 'person'),
+        related_name='group_teachers'
     )
 
     status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
@@ -46,6 +54,19 @@ class Membership(models.Model):
     person = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Участник'
+        verbose_name_plural = 'Участники'
+
+
+class Personal(models.Model):
+    person = models.ForeignKey(User, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Преподаватель'
+        verbose_name_plural = 'Преподаватели'
+
 
 class List(InfoMixin):
     class Meta:
@@ -53,10 +74,11 @@ class List(InfoMixin):
         verbose_name_plural = 'Расписание лекций'
         ordering = ('-created_at', '-started_at')
 
-    course = models.OneToOneField(Course, verbose_name='Курс', on_delete=models.CASCADE)
-    lesson = models.OneToOneField(Lesson, verbose_name='Лекция', on_delete=models.CASCADE)
-    teacher = models.OneToOneField(User, verbose_name='Преподаватель', on_delete=models.CASCADE)
-    group = models.OneToOneField(Group, verbose_name='Группа', on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='schedule_course')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Лекция', related_name='schedule_lesson')
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Преподаватель',
+                                related_name='schedule_teacher')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name='Группа', related_name='schedule_group')
 
     started_at = models.DateTimeField(verbose_name='Начало')
     ended_at = models.DateTimeField(verbose_name='Конец')

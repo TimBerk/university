@@ -98,8 +98,9 @@ class Profile(models.Model):
     location = models.CharField(verbose_name='Город', max_length=70, null=True, blank=True)
     avatar = models.ImageField(verbose_name='Аватар', upload_to='media/avatars/%Y/%m/%d', null=True, blank=True)
 
-    scope = models.OneToOneField(Scope, verbose_name='Обдасть деятельности', on_delete=models.CASCADE, null=True)
-    skills = models.ManyToManyField(Skill, verbose_name='Навыки')
+    scope = models.ForeignKey(Scope, on_delete=models.CASCADE, verbose_name='Обдасть деятельности',
+                              related_name='user_scope', null=True, blank=True)
+    skills = models.ManyToManyField(Skill, verbose_name='Навыки', null=True, blank=True)
 
     def __str__(self):
         return f'{self.user.username} user profile'

@@ -31,6 +31,8 @@ make start
 * [Djoser](https://djoser.readthedocs.io/en/latest/getting_started.html) - REST implementation of Django authentication system.
 * [drf-yasg](https://drf-yasg.readthedocs.io/en/stable/) - library generates OpenAPI 2.0 documents.
 * [Pipdeptree](https://github.com/naiquevin/pipdeptree) - command line utility for displaying the installed python packages in form of a dependency tree.
+* [Django-filter](https://django-filter.readthedocs.io/en/stable/) - Django-filter is a generic, reusable application to alleviate writing some of the more mundane bits of view code.
+* [Graphene-Python](https://graphene-python.org/) - library for building GraphQL APIs in Python.
 
 ## Make команды
 

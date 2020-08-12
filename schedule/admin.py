@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from courses.admin import get_app_list
-from .models import Group, List, Membership
+from .models import Group, List, Membership, Personal
 
 from django.db import models
 from django.contrib.admin.widgets import AdminDateWidget
@@ -38,13 +38,17 @@ class MembershipInline(admin.TabularInline):
     model = Membership
 
 
+class PersonalInline(admin.TabularInline):
+    model = Personal
+
+
 @admin.register(Group)
 class GroupAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'course', 'created_by', 'updated_by']
     list_display_links = ['name']
     list_filter = ['course']
     exclude = ['created_by', 'updated_by']
-    inlines = [MembershipInline]
+    inlines = [MembershipInline, PersonalInline]
 
     def save_model(self, request, obj, form, change):
         current_user = request.user

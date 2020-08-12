@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'drf_yasg',
+    'django_filters',
+    'graphene_django',
 
     'user.apps.UserConfig',
     'courses.apps.CoursesConfig',
@@ -254,4 +256,8 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
+
+GRAPHENE = {
+    'SCHEMA': 'university.schema.schema'
 }
