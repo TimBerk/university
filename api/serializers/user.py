@@ -10,7 +10,6 @@ class SkillUserSerializer(serializers.ModelSerializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    role = serializers.CharField(source='get_role_display')
     gender = serializers.CharField(source='get_gender_display')
     qualification = serializers.CharField(source='get_qualification_display')
 

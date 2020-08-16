@@ -1,0 +1,30 @@
+[
+  {
+    "pk": 1,
+    "fields": {
+      "first_name": "",
+      "last_name": "Администратор"
+    }
+  },
+  {
+    "pk": 2,
+    "fields": {
+      "first_name": "Илья",
+      "last_name": "Самойлов"
+    }
+  },
+  {
+    "pk": 3,
+    "fields": {
+      "first_name": "Вадим",
+      "last_name": "Маслов"
+    }
+  },
+  {
+    "pk": 4,
+    "fields": {
+      "first_name": "Артем",
+      "last_name": "Артемьев"
+    }
+  }
+]

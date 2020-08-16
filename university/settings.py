@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'django_filters',
     'graphene_django',
 
+    'university',
     'user.apps.UserConfig',
     'courses.apps.CoursesConfig',
     'schedule.apps.ScheduleConfig',

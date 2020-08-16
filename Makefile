@@ -4,6 +4,10 @@ migrate:
 	python manage.py migrate
 make-migrate:
 	python manage.py makemigrations
+remove-migrations:
+	python manage.py remove-migrations
+load-testusers:
+	python manage.py update-test-users
 superuser:
 	python manage.py createsuperuser
 shell:
@@ -11,10 +15,16 @@ shell:
 static-files:
 	python manage.py collectstatic
 start:
-	python manage.py create-admin --noinput --username admin --password admin --email admin@admin.ru
+	python manage.py makemigrations
+	python manage.py migrate
+	python manage.py loaddata user/fixtures/group.json
+	python manage.py create-admin --noinput --username admin --password admin --email admin@uni.ru
+	python manage.py create-admin --noinput --username teacher --password teacher --email teacher@uni.ru --group teacher
+	python manage.py create-admin --noinput --username student_1 --password student_1 --email student_1@uni.ru --group student
+	python manage.py create-admin --noinput --username student_2 --password student_2 --email student_2@uni.ru --group student
+	python manage.py update-test-users
 	python manage.py loaddata user/fixtures/data.json
 	python manage.py loaddata courses/fixtures/data.json
-	python manage.py collectstatic
 rqscheduler:
 	python manage.py rqscheduler
 rqworker:
