@@ -29,14 +29,14 @@ class Group(InfoMixin):
     members = models.ManyToManyField(
         User,
         through='Membership',
-        through_fields=('group', 'person'),
+        through_fields=('group', 'member'),
         related_name='group_members'
     )
 
     teachers = models.ManyToManyField(
         User,
         through='Personal',
-        through_fields=('group', 'person'),
+        through_fields=('group', 'teacher'),
         related_name='group_teachers'
     )
 
@@ -51,21 +51,27 @@ class Group(InfoMixin):
 
 
 class Membership(models.Model):
-    person = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    member = models.ForeignKey(User, verbose_name='Студент', on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, verbose_name='Группа', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Участник'
         verbose_name_plural = 'Участники'
 
+    def __str__(self):
+        return f'{self.member.get_full_name()} ({self.group.name})'
+
 
 class Personal(models.Model):
-    person = models.ForeignKey(User, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(User, verbose_name='Преподаватель', on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, verbose_name='Группа', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Преподаватель'
         verbose_name_plural = 'Преподаватели'
+
+    def __str__(self):
+        return f'{self.teacher.get_full_name()} ({self.group.name})'
 
 
 class List(InfoMixin):

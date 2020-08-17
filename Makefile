@@ -25,6 +25,7 @@ start:
 	python manage.py update-test-users
 	python manage.py loaddata user/fixtures/data.json
 	python manage.py loaddata courses/fixtures/data.json
+	python manage.py loaddata schedule/fixtures/data.json
 rqscheduler:
 	python manage.py rqscheduler
 rqworker:

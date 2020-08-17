@@ -35,11 +35,13 @@ ADMIN_ORDERING = [
 
 
 class MembershipInline(admin.TabularInline):
-    model = Membership
+    model = Group.members.through
+    extra = 1
 
 
 class PersonalInline(admin.TabularInline):
-    model = Personal
+    model = Group.teachers.through
+    extra = 1
 
 
 @admin.register(Group)
@@ -47,7 +49,7 @@ class GroupAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'course', 'created_by', 'updated_by']
     list_display_links = ['name']
     list_filter = ['course']
-    exclude = ['created_by', 'updated_by']
+    exclude = ['created_by', 'updated_by', 'members', 'teachers']
     inlines = [MembershipInline, PersonalInline]
 
     def save_model(self, request, obj, form, change):

@@ -81,7 +81,7 @@ class Profile(models.Model):
 
     scope = models.ForeignKey(Scope, on_delete=models.CASCADE, verbose_name='Обдасть деятельности',
                               related_name='user_scope', null=True, blank=True)
-    skills = models.ManyToManyField(Skill, verbose_name='Навыки', null=True, blank=True)
+    skills = models.ManyToManyField(Skill, verbose_name='Навыки', blank=True)
 
     class Meta:
         verbose_name = 'Профиль'
