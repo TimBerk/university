@@ -86,6 +86,7 @@ mail/
 *.pyc
 *.db
 *.pid
+*.env
 
 # django migrations
 **/migrations/**

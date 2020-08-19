@@ -34,3 +34,5 @@ get-packages:
 	pip freeze > requirements.txt
 install-packages:
 	pip install -r requirements.txt
+docker:
+	docker-compose up -d

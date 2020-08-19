@@ -1,0 +1,22 @@
+version: '3.3'
+services:
+  web:
+   build: .
+   command: python manage.py runserver 0.0.0.0:8000
+   volumes:
+     - .:/code
+   ports:
+     - "8000:8000"
+   env_file:
+     - .env
+   depends_on:
+     - redis
+
+  redis:
+    restart: always
+    image: redis:latest
+    expose:
+      - "6379"
+    environment:
+      REDIS_MASTER_HOST: ${RQ_HOST}
+      REDIS_MASTER_PORT_NUMBER: ${RQ_PORT}

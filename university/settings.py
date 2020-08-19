@@ -18,7 +18,7 @@ from datetime import timedelta
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 root = environ.Path(__file__) - 2
 env = environ.Env()
-environ.Env.read_env()
+environ.Env.read_env(env.str(root(), '.env'))
 
 BASE_DIR = root()
 
@@ -193,9 +193,9 @@ CKEDITOR_CONFIGS = {
 
 RQ_QUEUES = {
     'default': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        'DB': 0
+        'HOST': env.str('RQ_HOST', 'localhost'),
+        'PORT': env.int('RQ_PORT', 6379),
+        'DB': env.int('RQ_DB', 0)
     }
 }
 

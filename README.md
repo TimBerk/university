@@ -39,6 +39,7 @@ make start
 * **run** - запуск сервера разработки.
 * **migrate** - синхронизация состояние базы данных с текущим состоянием моделей и миграций.
 * **make-migrate** - создание новых миграции на основе изменений в моделях.
+* **remove-migrations** - удаление всех файлов миграций.
 * **superuser** - создание администратора.
 * **shell** - запуск интерактивного интерпретатора.
 * **start** - инициализация тестовых данных.
@@ -67,15 +68,28 @@ make start
 
 * Sending letters with Redis.
 
+### Schedule
+
+* Add groups and schedule for them
+
 ### API
 
 * Authorization with JWT token;
 * CRUD for categories, courses and lessons.
 * Auto generate OpenAPI 2.0 documents.
 
-## Demo User
+## Demo Users
 
 ```
+administrator
 Login: admin
 Password: admin
+
+teacher
+Login: teacher
+Password: teacher
+
+student
+Login: student_1
+Password: student_1
 ```
