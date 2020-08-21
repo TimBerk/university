@@ -1,5 +1,5 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 from courses.models import Course, Lesson
 
@@ -57,6 +57,7 @@ class Membership(models.Model):
     class Meta:
         verbose_name = 'Участник'
         verbose_name_plural = 'Участники'
+        unique_together = ('member', 'group',)
 
     def __str__(self):
         return f'{self.member.get_full_name()} ({self.group.name})'
@@ -69,6 +70,7 @@ class Personal(models.Model):
     class Meta:
         verbose_name = 'Преподаватель'
         verbose_name_plural = 'Преподаватели'
+        unique_together = ('teacher', 'group',)
 
     def __str__(self):
         return f'{self.teacher.get_full_name()} ({self.group.name})'
@@ -79,6 +81,7 @@ class List(InfoMixin):
         verbose_name = 'Расписание'
         verbose_name_plural = 'Расписание лекций'
         ordering = ('-created_at', '-started_at')
+        unique_together = ('course', 'lesson', 'teacher', 'group', 'started_at')
 
     course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='schedule_course')
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='Лекция', related_name='schedule_lesson')

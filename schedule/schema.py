@@ -1,9 +1,9 @@
+import graphene
 from django.contrib.auth.models import User
 
-import graphene
 from graphene_django.types import DjangoObjectType
 
-from schedule.models import Group, Membership, List, Personal
+from schedule.models import Group, List, Membership, Personal
 
 
 class UserType(DjangoObjectType):

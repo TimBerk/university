@@ -1,11 +1,11 @@
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminDateWidget
+from django.db import models
 
 from courses.admin import get_app_list
-from .models import Group, List, Membership, Personal
 
-from django.db import models
-from django.contrib.admin.widgets import AdminDateWidget
-
+from .forms import MemberForm, PersonalForm
+from .models import Group, List
 
 ADMIN_ORDERING = [
     ('auth', [
@@ -37,11 +37,13 @@ ADMIN_ORDERING = [
 class MembershipInline(admin.TabularInline):
     model = Group.members.through
     extra = 1
+    form = MemberForm
 
 
 class PersonalInline(admin.TabularInline):
     model = Group.teachers.through
     extra = 1
+    form = PersonalForm
 
 
 @admin.register(Group)
