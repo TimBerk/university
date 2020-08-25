@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 
 from courses.models import Course, Lesson
 
@@ -92,7 +94,7 @@ class List(InfoMixin):
     started_at = models.DateTimeField(verbose_name='Начало')
     ended_at = models.DateTimeField(verbose_name='Конец')
 
-    status = models.PositiveSmallIntegerField(choices=STATUSES, default=STATUS_DRAFT)
+    status = models.PositiveSmallIntegerField(verbose_name='Статус', choices=STATUSES, default=STATUS_DRAFT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_schedules")
@@ -100,3 +102,24 @@ class List(InfoMixin):
 
     def __str__(self):
         return f'{self.course.name} ({self.group.name}) {self.started_at}'
+
+    def clean(self):
+        lesson_ended = List.objects.filter(started_at__lt=self.ended_at, ended_at__gte=self.ended_at).filter(
+            Q(group=self.group) | Q(teacher=self.teacher))
+        lesson_started = List.objects.filter(started_at__gte=self.started_at, ended_at__lt=self.started_at).filter(
+            Q(group=self.group) | Q(teacher=self.teacher))
+
+        if len(lesson_ended) > 0:
+            for lesson in lesson_ended:
+                if lesson.teacher == self.teacher:
+                    raise ValidationError({'teacher': ["У выбранного преподавателя уже есть лекция в выбранное время"]})
+
+                if lesson.group == self.group:
+                    raise ValidationError({'group': ["У выбранной группы уже есть лекция в выбранное время"]})
+
+        if len(lesson_started) > 0:
+            for lesson in lesson_started:
+                if lesson.teacher == self.teacher:
+                    raise ValidationError({'teacher': ["У выбранного преподавателя уже есть лекция в выбранное время"]})
+                if lesson.group == self.group:
+                    raise ValidationError({'group': ["У выбранной группы уже есть лекция в выбранное время"]})

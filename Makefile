@@ -12,6 +12,8 @@ superuser:
 	python manage.py createsuperuser
 shell:
 	python manage.py shell
+sql-shell:
+	python manage.py debugsqlshell
 static-files:
 	python manage.py collectstatic
 start:

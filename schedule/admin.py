@@ -4,7 +4,7 @@ from django.db import models
 
 from courses.admin import get_app_list
 
-from .forms import MemberForm, PersonalForm
+from .forms import MemberForm, PersonalForm, ScheduleForm
 from .models import Group, List
 
 ADMIN_ORDERING = [
@@ -71,6 +71,7 @@ class ListAdmin(admin.ModelAdmin):
     list_filter = ['course', 'teacher', 'group', 'started_at', 'ended_at']
     exclude = ['created_by', 'updated_by']
 
+    form = ScheduleForm
     formfield_overrides = {
         models.DateField: {'widget': AdminDateWidget},
     }
