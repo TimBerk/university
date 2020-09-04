@@ -27,3 +27,37 @@ class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'profile')
+
+
+class StudentSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    queryset = User.objects.filter(groups__name='student')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'profile')
+
+
+class StudentSimpleSerializer(serializers.ModelSerializer):
+    queryset = User.objects.filter(groups__name='student')
+
+    class Meta:
+        model = User
+        fields = ('pk', 'last_name', 'first_name',)
+
+
+class TeacherSimpleSerializer(serializers.ModelSerializer):
+    queryset = User.objects.filter(groups__name='teacher')
+
+    class Meta:
+        model = User
+        fields = ('pk', 'last_name', 'first_name',)
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+    queryset = User.objects.filter(groups__name='teacher')
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'profile')

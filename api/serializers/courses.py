@@ -5,6 +5,12 @@ from api.serializers.lessons import LessonListSerializer
 from courses.models import Course
 
 
+class CourseSimpleListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ('pk', 'name',)
+
+
 class CourseListSerializer(serializers.ModelSerializer):
     category = CategoryListSerializer(read_only=True)
 

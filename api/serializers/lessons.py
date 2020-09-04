@@ -4,6 +4,12 @@ from courses.models import Lesson
 from api.serializers.tasks import TaskListSerializer
 
 
+class LessonSimpleListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = ('id', 'name')
+
+
 class LessonListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
