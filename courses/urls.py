@@ -9,6 +9,7 @@ app_name = 'courses'
 
 urlpatterns = [
     path('', courses_based_views.AllCoursesListView.as_view(), name='index'),
+    path('courses/my/', courses_based_views.MyCoursesListView.as_view(), name='my_view'),
     path('courses/create/', courses_based_views.CourseCreateView.as_view(), name='create_view'),
     path('courses/<int:pk>/update/', courses_based_views.CourseUpdateView.as_view(), name='update_view'),
     path('courses/<int:pk>/delete', courses_based_views.CourseDeleteView.as_view(), name='delete_view'),

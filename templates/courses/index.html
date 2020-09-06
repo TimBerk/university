@@ -15,8 +15,15 @@
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a href="{% url 'courses:detail_view' course.id %}" class="btn btn-amber btn-md">Просмотреть</a>
                             {% if user.is_authenticated %}
-                                <a href="{% url 'courses:update_view' course.id %}" class="btn btn-success btn-md">Обновить</a>
-                                <a href="{% url 'courses:delete_view' course.id %}" class="btn btn-red btn-md">Удалить</a>
+                                {% if user|has_group:"teacher" %}
+                                    <a href="{% url 'courses:update_view' course.id %}" class="btn btn-success btn-md">Обновить</a>
+                                {% endif %}
+
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'courses:update_view' course.id %}" class="btn btn-success btn-md">Обновить</a>
+
+                                    <a href="{% url 'courses:delete_view' course.id %}" class="btn btn-red btn-md">Удалить</a>
+                                {% endif %}
                              {% endif %}
                         </div>
                     </div>

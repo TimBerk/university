@@ -1,7 +1,7 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 from courses.models import Course
-from university.widgets.DatePickerInput import DatePickerInput
+from libraries.widgets.DatePickerInput import DatePickerInput
 
 
 class CourseForm(forms.ModelForm):

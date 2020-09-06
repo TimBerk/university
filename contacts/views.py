@@ -9,7 +9,7 @@ from django.views.generic import FormView
 
 from django.contrib import messages
 
-from university.helpers.EmailHelper import EmailHelper
+from libraries.helpers.EmailHelper import EmailHelper
 
 from contacts.forms import EmailForm
 from contacts.tasks import send_email_job
