@@ -31,11 +31,13 @@
             {% if user.is_superuser  %}
               <a class="dropdown-item" href="/courses/create">Создать курс</a>
               <a class="dropdown-item" href="/admin/">Администрирование</a>
+              <a class="dropdown-item" href="/schedule/">Расписание</a>
               <a class="dropdown-item" href="/admin/logout">Выйти</a>
             {% else %}
               {% if user|has_group:"teacher" %}
                  <a href="{% url 'courses:my_view' %}" class="dropdown-item">Мои курсы</a>
               {% endif %}
+              <a class="dropdown-item" href="/schedule/">Расписание</a>
               <a class="dropdown-item" href="/student/logout">Выйти</a>
             {% endif %}
           {% else %}

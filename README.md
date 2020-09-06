@@ -33,7 +33,8 @@ make start
 * [Pipdeptree](https://github.com/naiquevin/pipdeptree) - command line utility for displaying the installed python packages in form of a dependency tree.
 * [Django-filter](https://django-filter.readthedocs.io/en/stable/) - Django-filter is a generic, reusable application to alleviate writing some of the more mundane bits of view code.
 * [Graphene-Python](https://graphene-python.org/) - library for building GraphQL APIs in Python.
-* [Django braces](https://django-braces.readthedocs.io/en/latest/) - mixins for Django's class-based views..
+* [Django braces](https://django-braces.readthedocs.io/en/latest/) - mixins for Django's class-based views.
+* [Pendulum](https://pendulum.eustace.io/) - package to ease datetimes manipulation.
 
 ## Make команды
 

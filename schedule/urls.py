@@ -1,8 +1,10 @@
 from django.urls import path
-from .views import index_view
+
+import schedule.views as schedule_based_views
 
 app_name = 'schedule'
 
 urlpatterns = [
-    path('', index_view, name='index'),
+    path('', schedule_based_views.index_view, name='index'),
+    path('list', schedule_based_views.get_list_schedule, name='list'),
 ]
