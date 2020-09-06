@@ -1,4 +1,4 @@
-from rest_framework import generics, viewsets
+from rest_framework import viewsets
 
 from schedule.models import Group, STATUS_ACTIVE
 from api.serializers.group import (

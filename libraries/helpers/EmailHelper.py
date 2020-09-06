@@ -22,9 +22,9 @@ class EmailHelper:
 
     def email_content(self):
         return {
-            'subject':self.subject,
-            'plain_message':self.plain_message,
-            'from_email':self.from_email,
-            'email_to':self.email_to,
-            'html_message':self.html_message
+            'subject': self.subject,
+            'plain_message': self.plain_message,
+            'from_email': self.from_email,
+            'email_to': self.email_to,
+            'html_message': self.html_message
         }
