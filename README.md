@@ -50,6 +50,7 @@ make start
 * **rqworker** - запуск worker для каждой указанной очереди Redis.
 * **get-packages** - запись списка используемых пакетов в проекте.
 * **install-packages** - установка необходимых пакетов для проекта.
+* **front** - build frontend части для проекта.
 
 
 ## Features

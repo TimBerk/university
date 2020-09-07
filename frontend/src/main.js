@@ -1,3 +1,10 @@
+import { Calendar } from '@fullcalendar/core';
+import interactionPlugin from '@fullcalendar/interaction';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import moment from 'moment';
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -18,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('schedule');
   var formatTime = 'YYYY-MM-DD HH:mm:ss';
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  var calendar = new Calendar(calendarEl, {
+    plugins: [ interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin ],
     initialView: 'dayGridMonth',
     locale: 'ru',
     headerToolbar: {

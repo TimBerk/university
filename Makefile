@@ -38,3 +38,5 @@ install-packages:
 	pip install -r requirements.txt
 docker:
 	docker-compose up -d
+front:
+	cd ./frontend && npm i && npm run build
