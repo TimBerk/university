@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from api.permissions import IsOwnerUser
@@ -17,6 +18,8 @@ class LessonViewSet(viewsets.ViewSet):
     def get_permissions(self):
         if self.action in ['update']:
             return [IsOwnerUser()]
+        elif self.action in ['retrieve']:
+            return [AllowAny(), ]
         return super(LessonViewSet, self).get_permissions()
 
     def list(self, request, pk):

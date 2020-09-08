@@ -14,12 +14,20 @@ export default () => {
         }).then((response) => {
             let lesson = response.data;
 
-            $('.lead').text(lesson.name);
-            $('.purpose').text(lesson.purpose);
+            $('#lesson-name').text(lesson.name);
+            $('#description').text(lesson.description);
+            $('#purposes').text(lesson.purpose);
 
+            if ( $("#lessonTaskList").length ) {
+               $("#lessonTaskList").remove();
+            }
             $('#tasks').append("<ul id='lessonTaskList'></ul>");
-            for (let cnt = 0; cnt < task_lesson.length; cnt++) {
-                $("#lessonTaskList").append("<li>" + task_lesson[cnt].name + ":" + task_lesson[cnt].description + "</li>");
+            for (let cnt = 0; cnt < lesson.task_lesson.length; cnt++) {
+                let current_task = lesson.task_lesson[cnt];
+                $('#lessonTaskList').append("<li>" + current_task.name + ":" + current_task.description + "</li>");
+            }
+            if ( lesson.task_lesson.length === 0) {
+                $('#lessonTaskList').append("<li>Задач нет</li>");
             }
         }).catch((error) => {});
     });
