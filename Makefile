@@ -40,3 +40,5 @@ docker:
 	docker-compose up -d
 front:
 	cd ./frontend && npm i && npm run build
+build-front:
+	cd ./frontend && npm run build
