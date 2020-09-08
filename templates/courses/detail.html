@@ -8,9 +8,9 @@
 
         {% if course.preview %}
             <div class="row mb-4">
-              <div class="col-md-4 p-2 ">
-                <img src="/media/{{ course.preview }}" class="img-fluid" alt="{{ course.name }}">
-              </div>
+                <div class="col-md-4 p-2 ">
+                    <img src="/media/{{ course.preview }}" class="img-fluid" alt="{{ course.name }}">
+                </div>
             </div>
         {% endif %}
 
@@ -25,9 +25,56 @@
 
             <ul class="list-group list-group-flush">
                 {% for lesson in course.lesson_course.all %}
-                    <li class="list-group-item">{{lesson.name}}</li>
+                    <li class="list-group-item">{{ lesson.name }} <span
+                            class="badge badge-primary badge-pill js-btn-course" data-id="{{ lesson.pk }}"
+                            data-toggle="modal" data-target="#modalLection">Подробнее</span></li>
                 {% endfor %}
             </ul>
         {% endif %}
     </div>
+
+    <div class="modal fade right" id="modalLection" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true" data-backdrop="false">
+        <div class="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p class="heading lead"></p>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="white-text">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <i class="far fa-file-alt fa-4x mb-3 animated rotateIn"></i>
+                        <p class="text-center">
+                            <strong>Цели</strong>
+                        </p>
+                        <p class="purpose"></p>
+                    </div>
+
+                    <hr>
+
+                    <p class="text-center">
+                        <strong>Задачи</strong>
+                    </p>
+
+                    <div id="tasks"></div>
+                </div>
+
+                <div class="modal-footer justify-content-center">
+                    <a type="button" class="btn btn-outline-primary waves-effect" data-dismiss="modal">Закрыть</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="{% static 'frontend/main.css' %}">
+    <script src="{% static 'frontend/main.js' %}"></script>
 {% endblock %}

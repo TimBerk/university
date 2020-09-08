@@ -1,3 +1,6 @@
+from django.contrib.auth import authenticate, login
+
+from rest_framework.authtoken.models import Token
 from rest_framework import serializers
 
 from user.models import Skill, User, Profile
@@ -61,3 +64,39 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'profile')
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=255, write_only=True)
+    password = serializers.CharField(max_length=128, write_only=True)
+
+    def validate(self, data):
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        if username is None:
+            raise serializers.ValidationError('Login требуется для входа в систему.')
+
+        if password is None:
+            raise serializers.ValidationError('Для входа в систему требуется пароль.')
+
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            raise serializers.ValidationError('Пользователь с таким адресом электронной почты и паролем не найден.')
+
+        if not user.is_active:
+            raise serializers.ValidationError('Пользователь не найден.')
+
+        token, created = Token.objects.get_or_create(user=user)
+
+        return {
+            'token': token
+        }
+
+    def login(self, data, request):
+        username = data.get('username', None)
+        password = data.get('password', None)
+
+        user = authenticate(username=username, password=password)
+        login(request, user)

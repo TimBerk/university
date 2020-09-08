@@ -27,6 +27,7 @@ urlpatterns = [
     path('courses/lessons/edit/<int:pk>', lessons_based_views.LessonViewSet.as_view({'post': 'update'})),
 
     path('user/', user_based_views.UserDetailView.as_view()),
+    path('user/login', user_based_views.LoginView.as_view()),
 
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
