@@ -14,6 +14,7 @@ make install-packages
 make make-migrate
 make migrate
 make start
+make front
 ```
 
 ## Built With
