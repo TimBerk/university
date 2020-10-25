@@ -29,7 +29,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'profile')
+        fields = ('username', 'email', 'profile', 'first_name', 'last_name')
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -38,7 +38,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'profile')
+        fields = ('username', 'email', 'profile', 'first_name', 'last_name')
 
 
 class StudentSimpleSerializer(serializers.ModelSerializer):
@@ -63,7 +63,7 @@ class TeacherSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'profile')
+        fields = ('username', 'email', 'profile', 'first_name', 'last_name')
 
 
 class LoginSerializer(serializers.Serializer):

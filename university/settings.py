@@ -33,7 +33,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['*']
-INTERNAL_IPS = ['127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -54,10 +54,12 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt.token_blacklist',
     'djoser',
     'drf_yasg',
     'django_filters',
     'graphene_django',
+    'corsheaders',
 
     'libraries',
     'user.apps.UserConfig',
@@ -72,6 +74,7 @@ INSTALLED_APPS = [
 FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -81,6 +84,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+#
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:8080",
+    'http://localhost:8000'
+]
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'university.urls'
 
@@ -217,13 +228,10 @@ ROBOT_EMAIL = env.str('ROBOT_EMAIL')
 EMAIL_BACKEND = 'eml_email_backend.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail/')
 
+CSRF_COOKIE_SECURE = True
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ],
+    "DATE_INPUT_FORMATS": ["%d-%m-%Y"],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',

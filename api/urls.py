@@ -6,8 +6,8 @@ import api.views.user as user_based_views
 import api.views.categories as categories_based_views
 import api.views.lessons as lessons_based_views
 
-from api.views.courses import CourseViewSet
-from api.views.schedule import ScheduleViewSet
+from api.views.courses import CourseViewSet, UserCourses, join_to_course
+from api.views.schedule import ScheduleViewSet, get_list_schedule
 from api.views.group import GroupViewSet
 
 from .yasg import urlpatterns as doc_urls
@@ -26,11 +26,14 @@ urlpatterns = [
     path('courses/lessons/detail/<int:pk>', lessons_based_views.LessonViewSet.as_view({'get': 'retrieve'})),
     path('courses/lessons/edit/<int:pk>', lessons_based_views.LessonViewSet.as_view({'post': 'update'})),
 
-    path('user/', user_based_views.UserDetailView.as_view()),
-    path('user/login', user_based_views.LoginView.as_view()),
+    path('schedule/calendar/', get_list_schedule),
 
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
+    path('user/', user_based_views.UserDetailView.as_view()),
+    path('user/session-token/', user_based_views.get_csrf),
+    path('user/logout/', user_based_views.logout_view),
+    path('user/courses/', UserCourses.as_view()),
+    path('user/join-to-course/<int:pk>/', join_to_course),
+
     path('auth/', include('djoser.urls.jwt')),
 ]
 

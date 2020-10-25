@@ -75,6 +75,10 @@ class Course(InfoMixin):
     def get_category_name(self):
         return self.category.name
 
+    @property
+    def lessons(self):
+        return self.lesson_course.order_by('order', 'created_by')
+
 
 class Lesson(InfoMixin):
     class Meta:

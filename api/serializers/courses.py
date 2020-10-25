@@ -8,7 +8,7 @@ from courses.models import Course
 class CourseSimpleListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ('pk', 'name',)
+        fields = ('id', 'name', 'description')
 
 
 class CourseListSerializer(serializers.ModelSerializer):
@@ -16,12 +16,12 @@ class CourseListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('name', 'slug', 'category')
+        fields = ('id', 'name', 'description', 'slug', 'category')
 
 
 class CourseDetailSerializer(serializers.ModelSerializer):
     category = CategoryListSerializer(read_only=True)
-    lesson_course = LessonListSerializer(many=True, read_only=True)
+    lessons = LessonListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Course

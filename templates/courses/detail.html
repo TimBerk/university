@@ -24,7 +24,7 @@
             <h3>Список лекций:</h3>
 
             <ul class="list-group list-group-flush">
-                {% for lesson in course.lesson_course.all %}
+                {% for lesson in course.lessons.all %}
                     <li class="list-group-item">{{ lesson.name }} <span
                             class="badge badge-primary badge-pill js-btn-course" data-id="{{ lesson.pk }}"
                             data-toggle="modal" data-target="#modalLection">Подробнее</span></li>
