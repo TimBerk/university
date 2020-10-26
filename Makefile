@@ -1,5 +1,7 @@
 run:
 	python manage.py runserver
+all:
+	python manage.py runserver & cd frontend && npm run dev
 migrate:
 	python manage.py migrate
 make-migrate:

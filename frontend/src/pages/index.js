@@ -1,8 +1,16 @@
-import initModal from './course';
-import initLoginForm  from './login';
-import './schedule';
+import AppRouter from './router';
+import MainPage from './MainPage';
+import { CoursePage, UserCoursesPage } from './Courses';
+import LoginPage from './LoginPage';
+import SchedulePage from './SchedulePage';
+import ProfilePage from './ProfilePage';
 
-export default () => {
-  initModal();
-  initLoginForm();
-};
+export {
+    AppRouter,
+    MainPage,
+    CoursePage,
+    LoginPage,
+    SchedulePage,
+    UserCoursesPage,
+    ProfilePage
+}
