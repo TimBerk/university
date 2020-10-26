@@ -1,3 +1,4 @@
+import { parseJSON } from 'jquery';
 import React, { Component, Fragment } from 'react';
 import { CourseDetail } from '../../../components/Course';
 import { connect } from 'react-redux';

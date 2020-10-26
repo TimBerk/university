@@ -11,10 +11,8 @@
 git clone https://github.com/TimBerk/university
 cd university
 make install-packages
-make make-migrate
-make migrate
 make start
-make front
+make all
 ```
 
 ## Built With

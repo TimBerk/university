@@ -32,6 +32,7 @@ start:
 	python manage.py loaddata user/fixtures/data.json
 	python manage.py loaddata courses/fixtures/data.json
 	python manage.py loaddata schedule/fixtures/data.json
+	cd frontend && npm i
 rqscheduler:
 	python manage.py rqscheduler
 rqworker:
