@@ -36,10 +36,12 @@ make front
 * [Graphene-Python](https://graphene-python.org/) - library for building GraphQL APIs in Python.
 * [Django braces](https://django-braces.readthedocs.io/en/latest/) - mixins for Django's class-based views.
 * [Pendulum](https://pendulum.eustace.io/) - package to ease datetimes manipulation.
+* [Django-cors-headers](https://github.com/adamchainz/django-cors-headers) - A Django App that adds Cross-Origin Resource Sharing (CORS) headers to responses.
 
 ## Make команды
 
 * **run** - запуск сервера разработки.
+* **all** - запуск сервера разработки с React.
 * **migrate** - синхронизация состояние базы данных с текущим состоянием моделей и миграций.
 * **make-migrate** - создание новых миграции на основе изменений в моделях.
 * **remove-migrations** - удаление всех файлов миграций.

@@ -18,6 +18,8 @@ sql-shell:
 	python manage.py debugsqlshell
 static-files:
 	python manage.py collectstatic
+get-fixtures:
+	python manage.py dumpdata courses --indent 4 > courses/fixtures/data.json
 start:
 	python manage.py makemigrations
 	python manage.py migrate
