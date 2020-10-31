@@ -1,4 +1,6 @@
-const nameOfBtnColors = [
+import { getRandomInt } from "./common";
+
+export const nameOfBtnColors = [
     'btn-elegant',
     'btn-unique',
     'btn-pink',
@@ -20,7 +22,3 @@ export const getRandomBtnColor = () => {
     const randomNumber = getRandomInt(nameOfBtnColors.length);
     return nameOfBtnColors[randomNumber];
 }
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * (max - 1)) + 1;
-}  

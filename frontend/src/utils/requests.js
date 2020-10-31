@@ -31,7 +31,7 @@ export const refreshHeader = () => {
 };
 
 export const checkOrSetCsrfToken = () => dispatch => {
-    const csrfToken = getCsrfToken()
+    const csrfToken = getCsrfToken();
 
     if (csrfToken === undefined) {
         mainAxios

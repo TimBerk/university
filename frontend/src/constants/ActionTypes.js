@@ -1,6 +1,7 @@
 export const GET_COURSE_LIST = 'GET_COURSE_LIST'
 export const GET_COURSE = 'GET_COURSE'
 
+export const GET_USER_DATA = 'GET_USER_DATA'
 export const GET_USER_COURSE = 'GET_USER_COURSE'
 export const JOIN_TO_COURSE = 'JOIN_TO_COURSE'
 
@@ -10,11 +11,6 @@ export const GET_LESSON = 'GET_LESSON'
 export const GET_SCHEDULE_LIST = 'GET_SCHEDULE_LIST'
 export const GET_SCHEDULE = 'GET_SCHEDULE'
 
-export const LOADED_REQUEST = 'LOADED_REQUEST'
-export const SUCCESS_REQUEST = 'SUCCESS_REQUEST'
-export const ERROR_REQUEST = 'ERROR_REQUEST'
-
-export const GET_USER_DATA = 'GET_USER_DATA'
 export const GET_CSRF_TOKEN = 'GET_CSRF_TOKEN'
 export const REFRESH_TOKEN = 'REFRESH_TOKEN'
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
