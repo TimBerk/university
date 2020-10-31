@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { parseJSON } from 'jquery';
 import { Redirect } from 'react-router-dom';
 import { getCourses } from '../../../actions/userAction';
 import { CourseList } from '../../../components/Course';
-import { CardLink, Spinner } from '../../../components/UI';
-import { Card, CardBody, CardHeader, CardImage } from '../../../components/UI';
-import { isEmpty } from '../../../utils';
+import { Spinner, Card, CardBody, CardHeader, CardImage, CardLink } from '../../../components/UI';
+import { isEmpty, getCurrentUser } from '../../../utils';
 
 
 class UserCoursesPage extends Component {
     state = {
-        sessionUser: sessionStorage.getItem('userData') ? parseJSON(sessionStorage.getItem('userData')) : {}
+        sessionUser: getCurrentUser()
     }
 
     componentDidMount() {

@@ -1,5 +1,10 @@
-export const GET_COURSE_LIST = 'GET_COURSE_LIST'
-export const GET_COURSE = 'GET_COURSE'
+export const GET = 'GET'
+export const REQUEST = 'REQUEST'
+export const SUCCESS = 'SUCCESS'
+export const FAILURE = 'FAILURE'
+
+export const COURSE_LIST = 'COURSE_LIST'
+export const COURSE = 'COURSE'
 
 export const GET_USER_DATA = 'GET_USER_DATA'
 export const GET_USER_COURSE = 'GET_USER_COURSE'

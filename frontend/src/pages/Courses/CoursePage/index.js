@@ -1,21 +1,22 @@
-import { parseJSON } from 'jquery';
 import React, { Component, Fragment } from 'react';
 import { CourseDetail } from '../../../components/Course';
 import { connect } from 'react-redux';
 import { getCourse } from '../../../actions/courseAction';
 import { getLesson } from '../../../actions/lessonAction';
 import { joinToCourse } from '../../../actions/userAction';
-import { Spinner } from '../../../components/UI';
+import {Card, CardBody, CardHeader, Spinner} from '../../../components/UI';
 import { LessonModal } from '../../../components/Lesson';
-import { isEmpty } from '../../../utils';
+import { isEmpty, getCurrentUser } from '../../../utils';
 
 
 class CoursePage extends Component {
     state = {
-        course: this.props.course,
+        course: null,
+        loading: false,
+        error: null,
         lesson: this.props.lesson,
         modal: false,
-        sessionUser: sessionStorage.getItem('userData') ? parseJSON(sessionStorage.getItem('userData')) : {}
+        sessionUser: getCurrentUser()
     };
 
     componentDidMount() {
@@ -28,6 +29,18 @@ class CoursePage extends Component {
         if(this.props.course !== nextProps.course && this.props.course !== undefined){
             this.setState({
                 course: nextProps.course
+            })
+        }
+
+        if(this.props.loading !== nextProps.loading && this.props.loading !== undefined){
+            this.setState({
+                loading: nextProps.loading
+            })
+        }
+
+        if(this.props.error !== nextProps.error && this.props.error !== undefined){
+            this.setState({
+                error: nextProps.error
             })
         }
 
@@ -58,13 +71,23 @@ class CoursePage extends Component {
 
 
     render() {
-        const { course, lesson, modal, sessionUser } = this.state;
+        const { course, loading, error, lesson, modal, sessionUser } = this.state;
         const { user } = this.props;
         const canJoin = (isEmpty(user) && !isEmpty(sessionUser));
 
         let lessonModal = null;
-        if (course === undefined || course === null) {
+
+        if (loading || course === undefined || course === null) {
             return <Spinner />
+        }
+
+        if (error) {
+            return <Card>
+                <CardBody>
+                    <CardHeader name='Ошибка' />
+                    { error }
+                </CardBody>
+            </Card>
         }
 
         if (modal && lesson) {
@@ -82,8 +105,8 @@ class CoursePage extends Component {
 }
 
 
-const mapStateToProps = ({ courses: { course }, lessons: {lesson}, auth: { user } }) => {
-    return { course, lesson, user }
+const mapStateToProps = ({ course: { course, loading, error }, lessons: {lesson}, auth: { user } }) => {
+    return { course, loading, error, lesson, user }
 }
 
 const mapDispatchToProps = {

@@ -1,27 +1,26 @@
-import {GET, REQUEST, SUCCESS, FAILURE, COURSE} from '../constants/ActionTypes';
+import { GET, REQUEST, SUCCESS, FAILURE, COURSE_LIST } from '../constants/ActionTypes';
 
 const initialState = {
-    course: null,
+    items: null,
     loading: false,
     error: null
 }
 
-const courseReducer = (state = initialState, action) => {
-
+const coursesReducer = (state = initialState, action) => {
     switch (action.type) {
-        case COURSE + "_" + GET + "_" + REQUEST:
+        case COURSE_LIST + "_" + GET + "_" + REQUEST:
           return {
             ...state,
             loading: true,
             error: null,
           }
-        case COURSE + "_" + GET + "_" + SUCCESS:
+        case COURSE_LIST + "_" + GET + "_" + SUCCESS:
           return {
             ...state,
             loading: false,
-            course: action.payload,
+            items: action.payload,
           }
-        case COURSE + "_" + GET + "_" + FAILURE:
+        case COURSE_LIST + "_" + GET + "_" + FAILURE:
           return {
             ...state,
             loading: false,
@@ -32,5 +31,4 @@ const courseReducer = (state = initialState, action) => {
     }
 }
 
-
-export default courseReducer;
+export default coursesReducer;
