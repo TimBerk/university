@@ -31,7 +31,7 @@ class UserCoursesPage extends Component {
             return <Spinner />
         }
         
-        if (courses.length == 0) {
+        if (courses.length === 0) {
             return <Card>
             <CardImage />
 

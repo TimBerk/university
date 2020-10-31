@@ -6,10 +6,10 @@ const Spinner = () => {
         <div className="container text-center">
             <div className="loadingio-spinner-double-ring-iuto20seinn">
                 <div className="ldio-ps8jcynr3d">
-                    <div></div>
-                    <div></div>
-                    <div><div></div></div>
-                    <div><div></div></div>
+                    <div/>
+                    <div/>
+                    <div><div/></div>
+                    <div><div/></div>
                 </div>
             </div>
         </div>

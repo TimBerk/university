@@ -19,7 +19,7 @@ const CardBody = (props) => {
 
 const CardImage = (props) => {
     const { link, alt=null } = props;
-    let imageLink = (link == null) ? 'https://picsum.photos/900/200' : link;
+    let imageLink = (link === null) ? 'https://picsum.photos/900/200' : link;
     
     return (
         <div className="view overlay">

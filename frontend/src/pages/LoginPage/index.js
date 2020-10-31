@@ -3,8 +3,20 @@ import { connect } from 'react-redux';
 import { login, userData } from '../../actions/authAction';
 import LoginForm from '../../components/LoginForm';
 import { Card, CardBody, CardHeader, CardImage } from '../../components/UI';
+import {getCurrentUser, isEmpty} from "../../utils";
 
 class LoginPage extends Component {
+    state = {
+        sessionUser: getCurrentUser()
+    }
+
+    componentDidMount() {
+        const { user, token } = this.props;
+        if (token && isEmpty(user) && isEmpty(this.state.sessionUser)) {
+            this.props.userData();
+        }
+    }
+
     componentWillReceiveProps(nextProps){
         if (this.props.token !== nextProps.token) {
             this.props.userData();
@@ -13,8 +25,9 @@ class LoginPage extends Component {
 
     render() {
         const { user, login } = this.props;
+        const { sessionUser } = this.state;
 
-        if (Object.keys(user).length > 0) {
+        if (!isEmpty(user) || !isEmpty(sessionUser)) {
             return <Card>
                 <CardImage />
 

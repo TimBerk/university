@@ -1,4 +1,4 @@
-import { GET_LESSON_LIST, GET_LESSON } from "../constants/ActionTypes";
+import { GET_LESSON } from "../constants/ActionTypes";
 import { mainAxios } from '../utils';
 
 export const getLesson = (id) => dispatch => {

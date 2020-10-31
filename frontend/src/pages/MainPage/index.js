@@ -19,10 +19,6 @@ class MainPage extends Component {
         }
     }
 
-    getLessonInfo = (id) => {
-
-    }
-
     render() {
         const { courses } = this.state;
 

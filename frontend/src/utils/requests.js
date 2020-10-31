@@ -1,6 +1,7 @@
 import axios from "axios";
-import Cookies from 'universal-cookie';
 import { GET_CSRF_TOKEN } from '../constants/ActionTypes'
+import {getToken, getRefreshToken, getCsrfToken, cookies} from "./storages";
+
 const BASE_URL = 'http://localhost:8000/api/';
 
 export const mainAxios = axios.create({
@@ -20,30 +21,17 @@ export const csrfAxios = (csrfToken) => {
 }
 
 export const bearerHeader = () => {
-    const token = localStorage.getItem('token')
-
-    if (token) {
-        return {
-            headers: { Authorization: ` Bearer ${token}` }
-        }
-    } else {
-        return {}
-    }
+    const token = getToken();
+    return token ? { headers: { Authorization: ` Bearer ${token}` } } : {};
 };
 
-export const refreshToken = () => {
-    const token = localStorage.getItem('refresh_token')
-
-    if (token) {
-        return { refresh: token }
-    } else {
-        return {}
-    }
+export const refreshHeader = () => {
+    const token = getRefreshToken();
+    return token ? { refresh: token } : {};
 };
 
 export const checkOrSetCsrfToken = () => dispatch => {
-    const cookies = new Cookies();
-    const csrfToken = cookies.get('csrftoken');
+    const csrfToken = getCsrfToken()
 
     if (csrfToken === undefined) {
         mainAxios

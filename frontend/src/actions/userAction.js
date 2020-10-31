@@ -1,8 +1,10 @@
 import { GET_USER_COURSE, REFRESH_TOKEN, JOIN_TO_COURSE } from "../constants/ActionTypes";
-import { mainAxios, bearerHeader, refreshToken } from '../utils';
+import { mainAxios, bearerHeader, refreshHeader, getToken } from '../utils';
+
+const getUserCourse = results => ({type: GET_USER_COURSE, payload: results});
 
 export const getRefreshToken = () => dispatch => {
-    mainAxios.post(`auth/jwt/refresh/`,  refreshToken())
+    mainAxios.post(`auth/jwt/refresh/`,  refreshHeader())
     .then(response => {
         localStorage.setItem("token", response.data.access);
 
@@ -16,13 +18,7 @@ export const getRefreshToken = () => dispatch => {
 
 export const getCourses = () => dispatch => {
     mainAxios.get(`user/courses/`,  bearerHeader())
-        .then(response => {
-
-            return dispatch({
-                type: GET_USER_COURSE,
-                payload: response.data.results
-            })
-        })
+        .then(response => dispatch(getUserCourse(response.data.results)))
         .catch(errors => {
             console.log(errors);
 
@@ -33,7 +29,7 @@ export const getCourses = () => dispatch => {
 }
 
 export const joinToCourse = (id) => dispatch => {
-    const token = localStorage.getItem('token')
+    const token = getToken();
     mainAxios.defaults.headers.common['Authorization'] = ` Bearer ${token}`;
 
     mainAxios.post(`user/join-to-course/${id}/`)

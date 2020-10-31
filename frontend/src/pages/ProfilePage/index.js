@@ -1,20 +1,19 @@
-import { parseJSON } from 'jquery';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { logout, userData } from '../../actions/authAction';
-import { isEmpty, getRandomBtnColor } from '../../utils';
+import { isEmpty, getRandomBtnColor, getCurrentUser } from '../../utils';
 import './style.css';
 
 
 class ProfilePage extends Component {
     state = {
-        sessionUser: sessionStorage.getItem('userData') ? parseJSON(sessionStorage.getItem('userData')) : {}
+        sessionUser: getCurrentUser()
     }
 
     componentDidMount() {
         const { user, token } = this.props;
-        if (token && isEmpty(user) && isEmpty(sessionUser)) {
+        if (token && isEmpty(user) && isEmpty(this.state.sessionUser)) {
             this.props.userData();
         }
     }
