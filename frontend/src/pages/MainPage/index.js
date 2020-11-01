@@ -14,7 +14,7 @@ class MainPage extends Component {
         this.props.getCourseList();
     }
 
-    componentWillReceiveProps(props) {
+    UNSAFE_componentWillReceiveProps(props) {
         if (props.loading !== this.props.loading) {
             this.setState({ loading: props.loading})
         }
