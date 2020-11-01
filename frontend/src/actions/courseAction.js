@@ -8,7 +8,7 @@ const boundListFailure = error => ({ type: COURSE_LIST + "_" + GET + "_" + FAILU
 
 export const getCourseList = () => dispatch => {
     dispatch(boundListRequest())
-    mainAxios.get('courses/')
+    return mainAxios.get('courses/')
         .then(res => dispatch(boundListSuccess(res.data.results)))
         .catch(err => dispatch(boundListFailure(err.response.statusText)));
 }
@@ -20,7 +20,7 @@ const boundItemFailure = error => ({ type: COURSE + "_" + GET + "_" + FAILURE, p
 
 export const getCourse = (id) => dispatch => {
     dispatch(boundItemRequest())
-    mainAxios.get(`courses/${id}/`)
+    return mainAxios.get(`courses/${id}/`)
         .then(res => dispatch(boundItemSuccess(res.data)))
         .catch(err => dispatch(boundItemFailure(err.response.statusText)));
 }

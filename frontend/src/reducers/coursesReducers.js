@@ -1,6 +1,6 @@
 import { GET, REQUEST, SUCCESS, FAILURE, COURSE_LIST } from '../constants/ActionTypes';
 
-const initialState = {
+export const initialState = {
     items: null,
     loading: false,
     error: null
@@ -12,7 +12,7 @@ const coursesReducer = (state = initialState, action) => {
           return {
             ...state,
             loading: true,
-            error: null,
+            error: null
           }
         case COURSE_LIST + "_" + GET + "_" + SUCCESS:
           return {

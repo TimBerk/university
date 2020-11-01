@@ -2,7 +2,7 @@ import axios from "axios";
 import { GET_CSRF_TOKEN } from '../constants/ActionTypes'
 import {getToken, getRefreshToken, getCsrfToken, cookies} from "./storages";
 
-const BASE_URL = 'http://localhost:8000/api/';
+export const BASE_URL = 'http://localhost:8000/api/';
 
 export const mainAxios = axios.create({
     baseURL: BASE_URL,
