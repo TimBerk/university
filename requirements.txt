@@ -8,7 +8,7 @@ django-eml-email-backend==0.1
 django-environ==0.4.5
 django-filter==2.3.0
 django-rq==2.3.2
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 djangorestframework-simplejwt==4.4.0
 djoser==2.0.3
 drf-yasg==1.17.1
